@@ -5,17 +5,21 @@ aws-ec2-ebs-automatic-snapshot-bash
 
 Written by  **[AWS Consultants - Casey Labs Inc.] (http://www.caseylabs.com)**
 
-Forked by DdPerna
-
 *Contact us for all your Amazon Web Services consulting needs!*
+
+Forked by DdPerna
 
 ===================================
 
+**Differences**
+
+Instead of placing the script on each box that needs to backup it's ebs volume, Run it from one instance with the proper IAM role and create the backup tag for the instances you want to snapshot.
+
 **How it works:**
 ebs-snapshot.sh will:
-- Gather a list of all volume IDs attached to an instance with a tag called Backup with a value of yes
+- Gather a list of all volume IDs attached to an instance that has a tag called "Backup" with a value of "yes" (case sensitive)
 - Take a snapshot of each attached volume
-- The script will then delete all associated snapshots taken by the script that are older than 7 days
+- The script will then delete all associated snapshots taken by the script that are older than 27 days
 
 Pull requests greatly welcomed!
 
@@ -77,15 +81,16 @@ Default output format: (Enter "text".)```
 **Install Script**: Download the latest version of the snapshot script and make it executable:
 ```
 cd ~
-wget https://raw.githubusercontent.com/CaseyLabs/aws-ec2-ebs-automatic-snapshot-bash/master/ebs-snapshot.sh
+wget https://raw.githubusercontent.com/DdPerna/aws-ec2-ebs-automatic-snapshot-bash/master/ebs-snapshot.sh
 chmod +x ebs-snapshot.sh
 mkdir -p /opt/aws
 sudo mv ebs-snapshot.sh /opt/aws/
 ```
 
-You should then setup a cron job in order to schedule a nightly backup. Example crontab jobs:
+You should then setup a cron job in order to schedule a weekly backup. Example crontab jobs:
 ```
-55 22 * * * root  AWS_CONFIG_FILE="/root/.aws/config" /opt/aws/ebs-snapshot.sh
+# snapshot ebs volumes every sunday at 1am
+0 1 * * 0 root  AWS_CONFIG_FILE="/root/.aws/config" /opt/aws/ebs-snapshot.sh
 
 # Or written another way:
 AWS_CONFIG_FILE="/root/.aws/config" 
