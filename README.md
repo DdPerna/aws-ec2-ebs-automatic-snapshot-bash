@@ -5,14 +5,15 @@ aws-ec2-ebs-automatic-snapshot-bash
 
 Written by  **[AWS Consultants - Casey Labs Inc.] (http://www.caseylabs.com)**
 
+Forked by DdPerna
+
 *Contact us for all your Amazon Web Services consulting needs!*
 
 ===================================
 
 **How it works:**
 ebs-snapshot.sh will:
-- Determine the instance ID of the EC2 server on which the script runs
-- Gather a list of all volume IDs attached to that instance
+- Gather a list of all volume IDs attached to an instance with a tag called Backup with a value of yes
 - Take a snapshot of each attached volume
 - The script will then delete all associated snapshots taken by the script that are older than 7 days
 
@@ -22,7 +23,7 @@ Pull requests greatly welcomed!
 
 **REQUIREMENTS**
 
-**IAM User:** This script requires that new IAM user credentials be created, with the following IAM security policy attached:
+**IAM User:** This script requires IAM user credentials, with the following IAM security policy attached:
 
 ```
 {
