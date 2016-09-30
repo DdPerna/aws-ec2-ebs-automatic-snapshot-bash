@@ -1,6 +1,8 @@
 #!/bin/bash
 export PATH=$PATH:/usr/local/bin/:/usr/bin
 
+#test
+
 # Safety feature: exit script if error is returned, or if variables not set.
 # Exit if a pipeline results in an error.
 set -ue
