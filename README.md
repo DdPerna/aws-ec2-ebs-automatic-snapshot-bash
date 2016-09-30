@@ -27,7 +27,7 @@ Pull requests greatly welcomed!
 
 **REQUIREMENTS**
 
-**IAM User:** This script requires IAM user credentials, with the following IAM security policy attached:
+**IAM User:** The instance running the script requires an IAM role, with the following security policy attached:
 
 ```
 {
